@@ -50,15 +50,16 @@ namespace Enemy
 		void SubzeroController::fireFrostBeam()
 		{
 		  FrostBeam* frost_beam = new FrostBeam();
-		  frost_beam->initialize(enemy_model->getEnemyPosition());	 
+		  frost_beam->initialize(enemy_model->getEnemyPosition());
+		  ServiceLocator::getInstance()->getCollisionService()->addCollider(dynamic_cast<ICollider*>(frost_beam));
+		  frost_beam->setMovementDirection(MovementDirection::DOWN);
+		  frost_beam->setVerticalMovementSpeed(frost_beam_speed);
+		  frost_beam->setDamage(frost_beam_damage);
+		  frost_beam->setOwner(this);
+
+		  frost_beams.push_back(frost_beam);
+		  	 
 		}
-		void subzeroController::update()
-		{
-			 EnemyController::update();
-			 if(enemy_model->getEnemyState() == EnemyState::ALIVE)
-			 {
-				 fireFrostBeam();
-			 }
-		}
+		 
 	}
 }

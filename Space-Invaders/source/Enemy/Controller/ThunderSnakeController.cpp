@@ -121,14 +121,12 @@ namespace Enemy
 			Torpedo* torpedo = new Torpedo();
 			torpedo->initialize(enemy_model->getEnemyPosition());
 			torpedo->setPosition(enemy_model->getEnemyPosition());
+			torpedo->setMovementDirection(MovementDirection::DOWN);
+			torpedo->setVerticalMovementSpeed(torpedo_speed);
+			torpedo->setDamage(torpedo_damage);	
+			torpedo->setOwner(this);
+			
 		}
-		void ThunderSnakeController:: update()
-		{
-			EnemyController::update();
-			if (enemy_model->getEnemyState() == EnemyState::ALIVE)
-			{
-				fireTorpedoes();
-			}
-		}
+		 
 	}
 }

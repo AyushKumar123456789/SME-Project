@@ -192,8 +192,6 @@ namespace Player
 	}
 	void PlayerController::processBulletFire()
 	{
-		PlayerModel* getPlayerModel(); // Add this line to declare the "getPlayerModel" function
-       
 		if (player_model->isTrippleFireEnabled())
 		{
 			fireTrippleBullet();
@@ -202,18 +200,19 @@ namespace Player
 		{
 			fireBullet();
 		}
-		 
 	}
 
 	void PlayerController::fireBullet()
 	{
 		// Implementation of the fireBullet function
-		if (elapsed_bullet_cooldown <= 0)
-		{
-			ServiceLocator::getInstance()->getSoundService()->playSound(SoundType::PLAYER_FIRE);
-			player_model->fireBullet();
-			elapsed_bullet_cooldown = player_model->bullet_cooldown;
-		}
+		float bullet_speed = player_model->bullet_speed;
+		sf::Vector2f bullet_position = player_model->getPlayerPosition();
+		bullet_position.x += player_model->player_width / 2;
+		bullet_position.y -= player_model->bullet_height;
+
+		ServiceLocator::getInstance()->getBulletService()->createPlayerBullet(bullet_position, bullet_speed);
+		 
+
 	}
 
 	void PlayerController::processPlayerInput()
